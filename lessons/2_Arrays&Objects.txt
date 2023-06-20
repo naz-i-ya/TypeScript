@@ -1,0 +1,188 @@
+let stringArr = ['one', 'hey', 'naz']
+
+let guiters = ['Strat', 'Les Paul', 1208]
+
+let mixedData = ['EVH', 1997, true]
+
+stringArr[0] = 'Naziya'
+stringArr.push('Nazriya')
+
+guiters[0] = 2442;//can have number/string in first postion
+guiters.unshift('NAZI');
+
+guiters = stringArr//but not stringArr = guiters
+mixedData = guiters//but not guiters = mixedData
+
+let test = [];
+let bands: string[] = [];
+bands.push('NAz');
+
+//the lenght of the array or order of the types in  the array doesnot matter to typescript
+
+//Tuple
+
+let myTuple: [string, number, boolean] = ['Naziya', 25, true];
+
+let mixed = ['Naziya', 25, true];
+
+mixed = myTuple//but not myTuple = mixed
+
+// Objects
+let myObj: object
+myObj = []
+console.log(typeof myObj)
+myObj = bands
+myObj = {}
+
+const exampleObj = {
+    prop1: 'NAz',
+    prop2: true,
+}
+
+
+exampleObj.prop2 = false
+
+interface GuitarList {
+    name: string,
+    active?: boolean,
+    album: (string | number)[]
+}
+
+let evh: GuitarList = {
+    name: 'Naziya',
+    active: false,
+    album: [2, 'hello', 'nazriya']
+}
+let jp: GuitarList = {
+    name: 'Jimmy',
+    active: true,
+    album: [2, 'helllo', 'nriya']
+}
+
+const greetGuitarist = (guitarist: GuitarList) => {
+    return `Hello ${guitarist.name}`
+}
+
+console.log(greetGuitarist(jp))
+
+//Enums
+// "Unlike most typeScript features, Enums are not a type-level addition to js but something added to the language and runtime"
+
+enum Grade {
+    U = 1,
+    D,
+    C,
+    B,
+    A
+}
+
+console.log(Grade.U);
+
+
+//Type Aliases: types with different name
+type stringOrNumber = string | number;
+
+type stringOrNumberArray = (string | number )[]
+
+type Guitarist = {
+    name?: string,
+    active: boolean,
+    albums: (string | number)[]
+}
+
+type userId = stringOrNumber
+
+// interface postId = stringOrNumber wont work
+
+
+//Literal Types: cant reassign 
+let myName : 'Naziya' //literal assignment
+// myName = 'jhon'  cant assign
+
+
+let userName: 'Naziya' | 'Jhon' | 'Amy'
+userName = 'Naziya' //above are valid values for username
+
+
+//Functions
+
+const add = (a: number, b: number): number => {
+    return a + b
+}
+
+//VOID: function do not return anything
+const logMsg = (message: any): void => {
+    console.log(message);
+}
+
+logMsg('HELLO')
+logMsg(add(2,3))
+
+
+let substract = function(c: number, d: number): number {
+    return c - d;
+}
+
+type mathFunction = (a: number, b: number) => number 
+// interface mathFunction {
+//      (a: number, b: number) : number
+// }
+
+let multiply:  mathFunction = function(c, d){
+    return c * d;
+}
+
+logMsg(multiply(2, 2))
+
+//Optional Parameters: it should b last in the list
+
+const addAll = (a: number, b: number, c?: number): number => {
+    if(typeof c !== 'undefined'){
+        return a+b+c;
+    }
+   return a + b;
+}
+
+//Default param value
+//Default value not work with alias type n interface
+const sumAll = (a: number = 10, b: number, c: number = 2): number => {
+   return a + b + c;
+}
+
+logMsg(addAll(2,3,2))
+logMsg(addAll(2,3))
+logMsg(sumAll(undefined,3))
+
+//Rest Parameters
+const total = (a: number, ...nums: number[] ) : number=> {
+ return a + nums.reduce((prv, curr) => prv + curr)
+}
+
+logMsg(total(1,2,3,4));
+
+//never
+const createError = (errMsg: string): never => {
+    throw new Error(errMsg);
+}
+//never: bcz its endless loop
+const infinite = () => {
+    let i: number = 1
+    while(true){
+        i++
+        //solve
+        if(i > 100) break //now its void
+    }
+}
+
+//useful of never
+const isNumber = (value: any) : boolean => {
+ return typeof value === 'number' ? true : false
+} //custome type card
+
+const numberOrString = (value: number | string): string => {
+    if(isNumber(value)) return 'number'
+    if(typeof value === 'string') return 'string'
+    return createError('This should never happen');
+}
+
+

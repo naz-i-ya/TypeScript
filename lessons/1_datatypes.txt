@@ -1,0 +1,21 @@
+let myName: string ='Naziya';
+
+let meaningOfLife: number;
+
+let isLoading: boolean;
+let album: any
+
+myName = 'Naz'
+meaningOfLife = 23
+isLoading = true 
+album = 'false'
+
+const sum = (a: number,b: number) => {
+    return a+b;
+}
+
+let postId: string | number; //union type
+let isActive: boolean | number;
+
+
+let re: RegExp = /\w+/g
