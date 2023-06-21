@@ -1,0 +1,127 @@
+//CLasses
+
+
+class Coder {
+    name: string
+    music: string
+    age: number
+    lang: string
+
+    constructor(name: string, music: string, age: number, lang: string) {
+        this.name = name
+        this.music = music
+        this.age = age
+        this.lang = lang
+    }
+}
+
+//Data Modifiers/Visibility Members
+
+
+class CoderModifier {
+
+
+    constructor(
+       public readonly name: string, 
+       public music: string, 
+       private age: number, //can access inside class cannot access in derived class
+       protected lang: string = 'TypeScript') { //it can access inside class n derived classes
+        this.name = name
+        this.music = music
+        this.age = age
+        this.lang = lang
+    }
+
+    public getAge() {
+        return `Hello, I'm ${this.age}`
+    }
+}
+
+const Naziya = new CoderModifier('Naziya', 'Rock', 25);
+
+console.log(Naziya.getAge());
+// console.log(Naziya.age)  property cannot b accessable bcz its private only accessable within class coderModifier ,console.log(Naziya.age) not accessable bcz protected
+
+
+class webDev extends CoderModifier {
+    constructor(
+        public computer: string,
+        name: string,
+        music: string,
+        age: number
+    ){
+        super(name, music, age)
+        this.computer = computer
+    }
+
+    public getLang(){
+        return `I write ${this.lang}`
+    }
+}
+
+const Sara = new webDev('Mac', 'Sara', 'Lofi', 25);
+console.log(Sara.getLang())
+
+// ========INTERFACE===========
+interface Musician {
+    name: string,
+    instrument: string
+    play(action: string): string
+}
+
+class Guitarist implements Musician {
+    name: string
+    instrument: string
+
+    constructor(
+        name: string,
+        instrument: string
+    ){
+        this.name = name
+        this.instrument = instrument
+    }
+
+    play(action: string) {
+        return `${this.name} ${action} the ${this.instrument}`
+    }
+}
+
+const Page = new Guitarist('Naz', 'guitar');
+console.log(Page)
+console.log(Page.play('strums'))
+
+// ======================================================
+//static keyword: we can directly access properties on class & appkys directly to class
+class Count {
+    static count: number = 0
+
+    static getCount(){
+        return Count.count
+    }
+
+    public id: number
+
+    constructor(
+        public name: string
+    ){
+        this.name = name
+        this.id = ++Count.count
+    }
+}
+
+const SRK =  new Count('SRK');
+const Steve =  new Count('Steve');
+const Jhon =  new Count('Jhon');
+
+console.log(Count.count);
+console.log(SRK);
+console.log(Steve);
+console.log(Jhon);
+
+
+
+
+
+
+
+

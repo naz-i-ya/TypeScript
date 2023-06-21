@@ -1,0 +1,64 @@
+//Index Signatures
+
+interface TransactionObj {
+    readonly [index: string]: number
+
+    Pizza: number,
+    Books: number,
+    Job: number
+}
+
+//index signature : use to access dynamically 
+
+// interface TransactionObj{
+//    readonly [index: string]: number
+// }
+
+const todaysTransactions: TransactionObj = {
+    Pizza : -10,
+    Books: -5,
+    Job: 50,
+}
+
+console.log(todaysTransactions.Pizza);
+console.log(todaysTransactions['Pizza']);
+
+let prop: string = 'Job'
+
+console.log(todaysTransactions[prop])
+
+const todaysNet = (transaction: TransactionObj): number => {
+    let total = 0
+    for(const x in transaction){
+        total += transaction[x]
+    }
+    return total
+}
+
+// todaysTransactions.Pizza = 40//readonly doesnot allow to reassign
+console.log(todaysNet(todaysTransactions));
+
+
+// =========w-y
+interface Student {
+    [key: string]: string | number | number[] | undefined
+    name: string,
+    GPA: number,
+    classes?: number[]
+}
+
+const student: Student = {
+    name: 'Naz',
+    GPA: 8.2,
+    classes: [100, 200]
+}
+
+console.log(student.classes);
+
+for(const key in student ){
+    console.log(`${key}: ${student[key as keyof  Student]}`);
+}
+
+Object.keys(student).map(key => {
+    console.log(student[key as keyof typeof student])
+})
