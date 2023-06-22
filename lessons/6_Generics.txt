@@ -308,6 +308,7 @@ const usersArray = [
   ]
 
 console.log(getUsersProperty(usersArray, "email"))
+console.log(getUsersProperty(usersArray, "name"))
 
 //Generics with classes
 
